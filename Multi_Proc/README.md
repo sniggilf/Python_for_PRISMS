@@ -2,7 +2,7 @@ multiproc
 ------------------------------------------------------------
 
 command:
-> python multiproc foldername
+$ python multiproc foldername
 
 
 Output: foldername_PROC folder containing all XXXX.final.v and XXXX.RGB16.v files and a file, foldername_3D.txt, 
