@@ -1,17 +1,17 @@
 Macbeth Auto
 ------------------
 
-Program for quick *rough* check of entire macbeth chart as taken using PRISMS.
+Program for quick rough check of entire macbeth chart as taken using PRISMS.
+Select the entire macbeth chart when selecting ROI.
 
 Command:
 > python macbeth_auto.py filename.final.v     
 
-Note: DIRECTORY MUST CONTAIN BOTH filename.final.v AND filename.RGB16.v TO RUN!!
+Note: Directory must contain both XXXX.final.v and XXXX.RGB16.v 
 
 OUTPUT: filename_patches.jpeg    (showing points at which reflectance spectra were sampled)
 
-* IF MACBETH CHART IS ROTATED, SOME REGIONS MAY NOT BE SELECTED PROPERLY, CAN CHECK IN OUTPUT IMAGE.
-
-* IF WISH TO SAVE SPECTRAL PLOTS, CLICK ON SAVE BUTTON IN PLOT WINDOWS, AS YOU GO.
-
+* If macbeth chart is rotated, some regions may not be selected properly - check output image.
+* Exit window as you go
+* If wish to save spectral plots, save in window then exit as you go.
 * Type Ctrl+C to cancel all.
