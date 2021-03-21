@@ -1,7 +1,7 @@
 #Prog to align channels within a single image cube
 # input args:
 #white_in targets_folder
-#FOLDER MUST INCLUDE ONE WHITE FOR ALL TARGETS
+#FOLDER MUST INCLUDE ONE (or more) WHITE FOR ALL TARGETS
 #
 #NOT CURRENTLY USING DARK FILES OR FLAT FIELD CALIBRATION FILES - CHANGE THIS
 #> python multiproc.py folder
@@ -28,9 +28,6 @@ if sys.version_info < (3, 0):
 	from Tkinter.tkFileDialog import askopenfilename
 
 
-#import pWhite_new
-#import pTarget_new
-
 from array import *
 from ctypes import *
 from subprocess import call, Popen, PIPE
@@ -46,24 +43,25 @@ foldername = sys.argv[1]
 
 
 print('Folder name : %s \n' % (foldername))
+
 #withdraw() # we don't want a full GUI, so keep the root window from appearing
 print('Select file containing White Standard...')
 
-whitefile = askopenfilename(initialdir=dir+foldername) # show an "Open" dialog box and return the path to the selected file
+# show an "Open" dialog box and return the path to the selected white file
+whitefile = askopenfilename(initialdir=dir+foldername) 
 print('White File selected:', whitefile)
 
 filenames=[]
-
-#filenames = [(os.path.basename(x) for x in glob.iglob(dir+'\\'+foldername+'\\*.v')]
+#Get all filenames in folder
 for file in glob.iglob(dir+'\\'+foldername+'\\*.v'):
 	print(file)
 	f = file.split('\\')[-1]
 	if f.lower() not in str(whitefile).lower(): 
 		print(f)
 		filenames.append(f)
-	#if 'white' in f.lower(): white = f
+
 white = str(whitefile).split('/')[-1]
-#print('white :', white)
+
 os.system("python pWhite_multi.py %s %s" % (white, foldername))
 
 with open(dir+'\\'+foldername+'_PROC\\'+foldername+'_3D.txt','w') as wf:
@@ -76,7 +74,6 @@ for file in filenames:
 	print('-----Image cube: %s-----' % (file))
 	os.system("python pTarget_multi.py %s %s %s" % (file, white, foldername))
 
-#print(filenames)
 
 
 
