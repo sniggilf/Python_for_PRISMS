@@ -84,7 +84,7 @@ compare = input('Compare with other spectra? (y/n)  \n')
 
 if compare.lower() == 'y' : 
 	comp = True
-	ref_spec = input('Give filename(s):  ')
+	ref_spec = input('Give full filename(s) (e.g. red1.txt) :  ')
 	refs = ref_spec.split()
 	
 	fref = plt.figure()
