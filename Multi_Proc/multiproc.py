@@ -64,6 +64,11 @@ white = str(whitefile).split('/')[-1]
 
 os.system("python pWhite_multi.py %s %s" % (white, foldername))
 
+#Create output directory, 'PROC'
+OP = os.path.join(dir, foldername+'_PROC\\')
+if not os.path.exists(OP):
+   os.makedirs(OP)
+   
 with open(dir+'\\'+foldername+'_PROC\\'+foldername+'_3D.txt','w') as wf:
 	wf.write('{0}\t{1}\t\t{2}\t\t{3}\n'.format('Filename', 'Altitude', 'Azimuth', 'Focus Position'))
 	wf.write('---------------------------------------------------------------------------------------------------------\n')
