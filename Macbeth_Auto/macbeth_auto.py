@@ -44,7 +44,7 @@ if find(macbeth_filenames[0], filepath) == None:
 	sys.exit('\nCannot find ref spectra for macbeth chart. Looking for `1.txt\'...`24.txt\' somewhere in directory.')
 
 #Prisms wavelengths
-wl_PR = (400, 450, 500, 550, 600, 650, 700, 750, 800, 880)
+wl_PR = (400, 450, 500, 550, 600, 650, 700, 750, 800, 850)
 
 colours = ['dark_skin', 'light_skin', 'blue_sky', 'foliage', 'blue_flower', 'bluish_green',
            'orange', 'purplish_blue', 'moderate_red', 'purple', 'yellow_green', 'orange_yellow',

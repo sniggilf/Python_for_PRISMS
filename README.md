@@ -46,6 +46,8 @@ and in advanced go to environment variables, and in system variables PATH, add t
     > pip install matplotlib
 
     > pip install scipy
+	
+	> pip install scikit-image
 
     > pip install pandas
 	
