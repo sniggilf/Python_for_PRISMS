@@ -21,7 +21,7 @@ input_filename = sys.argv[1]
 choose_colour = sys.argv[2]
 
 #open spectrum
-wl_sample, R_sample = np.loadtxt(find(input_filename, filepath), skiprows = 0, unpack=True)
+wl_sample, R_sample = np.loadtxt(find(input_filename, filepath), skiprows = 0, usecols = (0,1), unpack=True)
 
 #check colour input
 colour = None
@@ -38,14 +38,14 @@ pigs = list(df.columns)
 
 for j in range(1, len(pigs)): ##
 	axes = plt.gca()
-	axes.set_xlim([900,2600])
+	axes.set_xlim([350,950])
 	axes.set_ylim([0,1.1])
 	plt.xlabel('Wavelength (nm)')
 	plt.ylabel('Reflectance')   
 	#if j%2 == 0 :
 	print(j)
 	plt.plot(df['Wavelength (nm)'][2:2000], df[pigs[j]][2:2000], label=pigs[j])
-	plt.plot(wl_sample, R_sample, label=input_filename.split('.')[0])
+	plt.plot(wl_sample, R_sample, 'r+', label=input_filename.split('.')[0])
 	plt.legend(shadow=True)
 	plt.show()
 	#else: plt.plot(df['Wavelength (nm)'][2:2000], df[pigs[j]][2:2000], label=pigs[j]) 

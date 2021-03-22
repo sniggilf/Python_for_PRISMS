@@ -41,16 +41,16 @@ and in advanced go to environment variables, and in system variables PATH, add t
 
 5. Whilst there you should also install any other missing modules:
 
-
-
     > pip install opencv-python    (for module cv2)
 
     > pip install matplotlib
 
     > pip install scipy
 
-
-
+    > pip install pandas
+	
+	> pip install odfpy
+	
 ...and anything else that comes up as missing if trying to run code...
 
  
