@@ -45,7 +45,7 @@ and in advanced go to environment variables, and in system variables PATH, add t
 
     > pip install opencv-python    (for module cv2)
 
-
+    > pip install matplotlib
 
     > pip install scipy
 
