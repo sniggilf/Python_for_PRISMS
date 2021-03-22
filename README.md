@@ -23,7 +23,7 @@ and in advanced go to environment variables, and in system variables PATH, add t
 
 3. Download and install a 64-bit Python from https://www.python.org/downloads/ , run the downloaded installer and 
    choose customised installation. Here, check the box which allows you 
-   to *add Python to path* in installer options.
+   to *add Python to environment variables* in installer options.
 
  
 
