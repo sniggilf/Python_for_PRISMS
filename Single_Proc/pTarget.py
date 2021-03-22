@@ -274,13 +274,13 @@ srcobs_z = D65_int*zbar_int
 cnt =0
 newbands = []
 for i in range(9):
-	print('Making new bands between bands %s and %s' %(i, i+1))
+	#print('Making new bands between bands %s and %s' %(i, i+1))
 	for j in range(10):
-		print('New bands %s ...' %(cnt))
+		#print('New bands %s ...' %(cnt))
 		newband = (bands[i+1]-bands[i])*j/10 + bands[i]
 		newbands.append(newband)
 		cnt+=1
-print('New bands %s ...' %(cnt))
+#print('New bands %s ...' %(cnt))
 newbands.append(bands[9])		
 	
 

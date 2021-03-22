@@ -221,11 +221,15 @@ white_scl = ch[5].scaleimage()
 white_scl.jpegsave('im_check.jpeg') 
 fromCenter = False
 imwh = cv2.imread('im_check.jpeg')
-r = cv2.selectROI(imwh, fromCenter) # r = x, y, xw, yh
+height, width, depth = imwh.shape
+
+resized = cv2.resize(imwh, (width//2, height//2))
+
+r = cv2.selectROI(resized, fromCenter) # r = x, y, xw, yh
 
 
 #Extract area from white tile
-Warea = align.extract_area(r[0], r[1], r[2], r[3]) #(left, top, width, height)
+Warea = align.extract_area(2*r[0], 2*r[1], 2*r[2], 2*r[3]) # #(left, top, width, height) or (x1, y1, x2-x1, y2-y1)
 Wstats = Warea.stats()
 W=[]
         
