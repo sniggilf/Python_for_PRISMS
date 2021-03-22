@@ -16,7 +16,8 @@ e.g. for windows download of version 8.10.5:
 https://github.com/libvips/libvips/releases/download/v8.10.5/vips-dev-w64-web-8.10.5.zip
 
 
-2. Add c:\vips-x.y.z\bin\ to your PATH. (To do this go to 'system variables' in Windows, and edit system paths, and add this to the list.)
+2. Add c:\vips-x.y.z\bin\ to your PATH. (To do this go to 'edit the system environment variables' in Windows, 
+and in advanced go to environment variables, and in system variables PATH, add this to the list.)
 
  
 
