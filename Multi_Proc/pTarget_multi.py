@@ -1,6 +1,5 @@
 #INPUT 
-#TARGET_IN.V WHITE_IN.v foldername (DARK_IN.v) (FLAT_IN.v)
-#The optional arguments can be in any order, but filename MUST contain the word 'dark' or 'flat'.
+#TARGET_IN.V WHITE_IN.v foldername 
 
 #OUTPUT
 #TARGET_IN.final.v : aligned multispectral image
@@ -255,10 +254,11 @@ overlap = 100
 ref = bands[5]
 for i in range(0,10):
 	img = bands[i]
-	join, optional = ref.mosaic(img, 'horizontal', 0, 0, 0, 0, harea=50, bandno=0, dx0=True, dy0=True)	
-	print('shifts for filter',i+1,' = ',optional['dx0'],optional['dy0'])     		
-	xshift.append(optional['dx0'])
-	yshift.append(optional['dy0'])
+	join1, optional1 = ref.mosaic(img, 'horizontal', 0, 0, 0, 0, harea=50, bandno=0, dx0=True, dy0=True)
+	join2, optional2 = ref.mosaic(img, 'vertical', 0, 0, 0, 0, harea=50, bandno=0, dx0=True, dy0=True)
+	print('shifts for filter',i+1,' = ',optional1['dx0'],optional2['dy0'])     		
+	xshift.append(optional1['dx0'])
+	yshift.append(optional2['dy0'])
 
 #Align the channels
 ch = []
@@ -282,8 +282,11 @@ final = f1.linear([cor,cor,cor,cor,cor,cor,cor,cor,cor,cor],[0,0,0,0,0,0,0,0,0,0
 #final = f1.linear([corS,corS,corS,corS,corS,corS,corS,corS,corS,corS],[corC,corC,corC,corC,corC,corC,corC,corC,corC,corC])
 ##the above needs to be changed for different capture geometry -------
 
-#Write out final aligned multispectral image
-final.write_to_file(OP+input_name+'.final.v')
+
+#### CROPPING OPTION #######
+final = final.extract_area(46, 44, 1350, 1010) # #(left, top, width, height) or (x1, y1, x2-x1, y2-y1)
+#im_rgb = rgb_img.extract_area(44, 44, 1350, 1010)
+
 
 #make the colour images
 print('Making the colour image ...')
@@ -356,12 +359,60 @@ imgC = imgC.bandjoin(imgZ)
 
 #if you want rgb image 
 imgC_rgb = imgC.colourspace('rgb16', source_space = 'xyz')
+#if you want LAB image
+imgC_CIELab = imgC.colourspace('lab', source_space = 'xyz')
 
-#save XYZ colour image to vips image file.
-imgC.vipssave(OP+input_name+'.XYZD65.v')
+#output folders
+OP_tiff_cubes = os.path.join(raw_path, foldername+'_PROC\\spectral_tiff\\')
+if not os.path.exists(OP_tiff_cubes):
+	os.makedirs(OP_tiff_cubes)
+OP_RGB_tiff = os.path.join(raw_path, foldername+'_PROC\\RGB_tiff\\')
+if not os.path.exists(OP_RGB_tiff):
+	os.makedirs(OP_RGB_tiff)
+OP_vips_cubes = os.path.join(raw_path, foldername+'_PROC\\vips\\')
+if not os.path.exists(OP_vips_cubes):
+	os.makedirs(OP_vips_cubes)
+OP_XYZ = os.path.join(raw_path, foldername+'_PROC\\XYZ_tiff\\')
+if not os.path.exists(OP_XYZ):
+	os.makedirs(OP_XYZ)
+OP_LAB = os.path.join(raw_path, foldername+'_PROC\\LAB_tiff\\')
+if not os.path.exists(OP_LAB):
+	os.makedirs(OP_LAB)
+OP_RGB_pngs = os.path.join(raw_path, foldername+'_PROC\\RGB_pngs\\')
+if not os.path.exists(OP_RGB_pngs):
+	os.makedirs(OP_RGB_pngs)
+	
 
-#save sRGB file
-imgC_rgb.vipssave(OP+input_name+'.RGB16.v')
+###########VIPS OUTPUT######
+############################
+############################
+#SPECTRAL IMAGE CUBE
+final.write_to_file(OP_vips_cubes+input_name+'.final.v')
+#RGB16 FILE
+imgC_rgb.vipssave(OP_vips_cubes+input_name+'.RGB16.v')
+############################
+
+
+######### TIFF OUTPUTS #########
+################################
+#SPECTRAL IMAGE CUBES AND IWVL FILES
+final.tiffsave(OP_tiff_cubes+input_name+'.final.tiff',compression='none',bigtiff=True)
+with open((OP_tiff_cubes+input_name+'.final.iwvl'),'w') as wf:
+	for wlP in wl_PR:
+		wf.write('{0}\n'.format(str(wlP)))
+#RGB16 FILES
+imgC_rgb.tiffsave(OP_RGB_tiff+input_name+'.RGB16.tiff')
+##XYZ FILES
+imgC.tiffsave(OP_XYZ+input_name+'.XYZD65.tiff')
+##CIELAB FILES
+imgC_CIELab.tiffsave(OP_LAB+input_name+'_CIELab.tiff')
+#################################
+
+#PNG outputs for RGB images
+##################################
+imgC_rgb.pngsave(OP_RGB_pngs+input_name+'.RGB16.png', Q=100)
+################################
+################################
 
 with open(raw_path+'\\'+foldername+'_PROC\\'+foldername+'_3D.txt','a') as wf:
 	wf.write('{0}\t{1}\t{2}\t{3}\n'.format(str(input_name), alt_t, az_t, fp_t))
