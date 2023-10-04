@@ -1,8 +1,4 @@
-#Prog to align channels within a single image cube
-# input args:
-#white_in targets_folder
-#FOLDER MUST INCLUDE ONE WHITE FOR ALL TARGETS
-#
+
 #NOT CURRENTLY USING DARK FILES OR FLAT FIELD CALIBRATION FILES - CHANGE THIS
 #> python multiproc.py folder
 
