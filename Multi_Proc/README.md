@@ -1,17 +1,30 @@
-multiproc 
+multiproc   (10.2023)
 ------------------------------------------------------------
+updates to code:
+-includes two-way shift check between bands for alignment of each cube
+-outputs all possible necessary file formats which can be changed by user 
 
-command:
+1. Put your folder(s) of raw data in same directory as all codes (pWhite_multi.py, pTarget_multi.py, multiproc.py) and the 'files' folder containing CIE standards and other files necessary for the code to run.
+
+2. Open windows command prompt and change to the directory containing the codes 
+(cd .. -> goes down a directory)
+(cd directoryname   -> goes up to the directory named e.g. 'directoryname')
+
+3. To run the code use command:
 > python multiproc foldername
 
+4.After running the code, you should be able to select the .v image containing the white standard from within your folder 
+and then select the ROI (white area) from this selected image (does not have to be named 'white').
 
-Output: foldername_PROC folder containing all XXXX.final.v and XXXX.RGB16.v files and a file, foldername_3D.txt, 
-file containing position info for each cube.
 
-When running the code, you should be able to select the image containing the white standard from within your folder and then select 
-the ROI (white area) from this selected image (does not have to be named 'white').
+output: foldername_PROC 
+(See end of 'pTarget_multi.py' to change if necessary)
+As default all of these folders of data are produced as output into the foldername_PROC directory:
+>spectral_tiff
+>RGB_tiff
+>vips
+>XYZ_tiff
+>LAB_tiff
+>RGB_pngs
 
-Note: Put your data folder(s) in same directory as all codes (multiproc.py, pWhite_multi.py, pTarget_multi.py, read_positions.py) and the 'files' folder.
-	  Flat Fielding and Dark corrections are ignored here. For flat & dark correction use single_proc per image.
-	  
-
+(See end of 'pTarget_multi.py' to change outputs if necessary by commenting out selected lines from ln 384 onwards)
